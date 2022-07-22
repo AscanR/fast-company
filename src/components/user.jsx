@@ -1,8 +1,9 @@
 import React from 'react'
-import Quality from "./quality";
-import Bookmark from "./bookmark";
+import Quality from './quality'
+import Bookmark from './bookmark'
+import PropTypes from "prop-types";
 
-const User = ({id, name, qualities, profession, completedMeetings, rate, handleSelected, handleUsersDelete, ...user}) => {
+const User = ({id, name, qualities, profession, completedMeetings, rate, handleSelected, handleUsersDelete, bookmark}) => {
     return (
           <>
               <tr key={id}>
@@ -24,7 +25,7 @@ const User = ({id, name, qualities, profession, completedMeetings, rate, handleS
                       <Bookmark
                             handleSelected={handleSelected}
                             id={id}
-                            {...user}
+                            bookmark={bookmark}
                       />
                   </td>
                   <td>
@@ -39,6 +40,18 @@ const User = ({id, name, qualities, profession, completedMeetings, rate, handleS
 
           </>
     )
+}
+
+User.propTypes = {
+    id: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    qualities: PropTypes.arrayOf(PropTypes.object).isRequired,
+    profession: PropTypes.object.isRequired,
+    completedMeetings: PropTypes.number.isRequired,
+    rate: PropTypes.number.isRequired,
+    handleSelected: PropTypes.func.isRequired,
+    handleUsersDelete: PropTypes.func.isRequired,
+    bookmark: PropTypes.bool.isRequired
 }
 
 export default User

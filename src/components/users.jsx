@@ -1,10 +1,10 @@
 import React from 'react'
 import User from './user'
+import PropTypes from "prop-types";
 
-
-const Users = ({users, handleSelected, handleUsersDelete}) => {
+const Users = ({handleSelected, handleUsersDelete, userCrop}) => {
     return (
-          users.map(user => {
+          userCrop.map(user => {
               return <User
                     key={user._id}
                     id={user._id}
@@ -15,10 +15,16 @@ const Users = ({users, handleSelected, handleUsersDelete}) => {
                     completedMeetings={user.completedMeetings}
                     handleSelected={handleSelected}
                     handleUsersDelete={handleUsersDelete}
-                    {...user}
+                    bookmark={user.bookmark}
               />
           })
     )
+}
+
+Users.propTypes = {
+    handleSelected: PropTypes.func.isRequired,
+    handleUsersDelete: PropTypes.func.isRequired,
+    userCrop: PropTypes.arrayOf(PropTypes.object).isRequired
 }
 
 export default Users

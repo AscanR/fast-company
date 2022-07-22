@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from "prop-types";
 
 const SearchStatus = ({length}) => {
     const renderPhrase = (num) => {
@@ -8,19 +9,22 @@ const SearchStatus = ({length}) => {
             return 'человека тусанут'
         }
     }
-    if (length !== 0) {
-        return (
-              <>
-                  <h2>
-                      <span className='badge bg-primary m-2'>{`${length} ${renderPhrase(length)} с тобой сегодня`}</span>
-                  </h2>
-              </>
-        )
-    }
+
+    const isEmptyList = length === 0
+    const classNames = `badge bg-${isEmptyList ? 'danger' : 'primary'} m-2`
+    const content = isEmptyList ? 'Никто с тобой не тусанет' : `${length} ${renderPhrase(length)} с тобой сегодня`
+
     return (
           <h2>
-              <span className='badge bg-danger m-2'>Никто с тобой не тусанет</span>
+              <span className={classNames}>
+                  {content}
+              </span>
           </h2>
     )
 }
+
+SearchStatus.propTypes = {
+    length: PropTypes.number.isRequired
+}
+
 export default SearchStatus
