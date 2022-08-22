@@ -34,4 +34,4 @@ TableBody.propTypes = {
     columns: PropTypes.object.isRequired
 }
 
-export default TableBody;
+export default TableBody

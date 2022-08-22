@@ -3,9 +3,9 @@ import PropTypes from 'prop-types'
 import Bookmark from './bookmark'
 import QualitiesList from './qualitiesList'
 import Table from './table'
-import TableHeader from "./tableHeader";
-import TableBody from "./tableBody";
-import {Link} from "react-router-dom";
+import TableHeader from './tableHeader'
+import TableBody from './tableBody'
+import {Link} from 'react-router-dom'
 
 const UsersTable = ({userCrop, handleSelected, handleUsersDelete, selectedSort, onSort}) => {
 
@@ -70,4 +70,4 @@ UsersTable.propTypes = {
     selectedSort: PropTypes.object.isRequired,
 }
 
-export default UsersTable;
+export default UsersTable

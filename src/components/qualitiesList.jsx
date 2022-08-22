@@ -23,4 +23,4 @@ QualitiesList.propTypes = {
     qualities: PropTypes.array
 }
 
-export default QualitiesList;
+export default QualitiesList

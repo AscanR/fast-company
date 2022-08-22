@@ -5,7 +5,7 @@ const Main = () => {
           <h1 className={'m-2'}>
               Main
           </h1>
-    );
-};
+    )
+}
 
 export default Main

@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import API from '../api'
-import SearchStatus from '../components/searchStatus'
-import Pagination from '../components/pagination'
+import SearchStatus from './searchStatus'
+import Pagination from './pagination'
 import { paginate } from '../utils/paginate'
-import GroupList from '../components/groupList'
-import UsersTable from '../components/usersTable'
+import GroupList from './groupList'
+import UsersTable from './usersTable'
 import _ from 'lodash'
 
 const pageSize = 6
@@ -62,9 +62,9 @@ const Users = () => {
 
     if (count.length !== 0) {
         return (
-              <div className="d-flex">
+              <div className='d-flex'>
                   {professions && (
-                        <div className="d-flex flex-column flex-shrink-0 p-3">
+                        <div className='d-flex flex-column flex-shrink-0 p-3'>
                             <GroupList
                                   items={professions}
                                   selectedItem={selectedProf}
@@ -78,7 +78,7 @@ const Users = () => {
                             </button>
                         </div>)}
                   {users && (
-                        <div className="d-flex flex-column">
+                        <div className='d-flex flex-column'>
                             <SearchStatus length={count.length}/>
                             {users.length > 0 && (
                                   <UsersTable
@@ -90,7 +90,7 @@ const Users = () => {
                                         selectedSort={sortBy}
                                   />
                             )}
-                            <div className="d-flex justify-content-center">
+                            <div className='d-flex justify-content-center'>
                                 <Pagination
                                       itemsCount={count.length}
                                       pageSize={pageSize}

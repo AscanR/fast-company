@@ -5,7 +5,7 @@ const Login = () => {
           <h1 className={'m-2'}>
               Login
           </h1>
-    );
-};
+    )
+}
 
-export default Login;
+export default Login

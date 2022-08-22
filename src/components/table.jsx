@@ -25,4 +25,4 @@ Table.propTypes = {
 }
 
 
-export default Table;
+export default Table
