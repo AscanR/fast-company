@@ -1,48 +1,35 @@
-import React, {useEffect, useState} from 'react'
-import API from '../api/index'
-import SearchStatus from './searchStatus'
-import Pagination from './pagination'
-import {paginate} from '../utils/paginate'
-import GroupList from "./groupList"
-import UsersTable from './usersTable'
+import React, { useEffect, useState } from 'react'
+import API from '../api'
+import SearchStatus from '../components/searchStatus'
+import Pagination from '../components/pagination'
+import { paginate } from '../utils/paginate'
+import GroupList from '../components/groupList'
+import UsersTable from '../components/usersTable'
 import _ from 'lodash'
+
+const pageSize = 6
 
 const Users = () => {
     const [users, setUsers] = useState([])
+    const [professions, setProfessions] = useState([])
+    const [selectedProf, setSelectedProf] = useState()
+    const [sortBy, setSortBy] = useState({ path: 'name', order: 'asc' })
+    const [currentPage, setCurrentPage] = useState(1)
 
     useEffect(() => {
         API.users.fetchAll().then((data) => {
             setUsers(data)
-        })
+        }).then(() => API.professions.fetchAll()
+              .then((data) => setProfessions(data)))
     }, [])
-
-    const [professions, setProfessions] = useState()
-
-    useEffect(() => {
-        API.professions.fetchAll().then((data) => {
-            setProfessions(data)
-        })
-    }, [])
-
-    const [selectedProf, setSelectedProf] = useState()
-
-    const [sortBy, setSortBy] = useState({path: 'name', order: 'asc'})
-
-    const pageSize = 6
 
     useEffect(() => {
         setCurrentPage(1)
     }, [selectedProf])
 
-    const [currentPage, setCurrentPage] = useState(1)
+    const handlePageChange = (pageIndex) => setCurrentPage(pageIndex)
 
-    const handlePageChange = (pageIndex) => {
-        setCurrentPage(pageIndex)
-    }
-
-    const handleUsersDelete = (id) => {
-        setUsers((prevState => prevState.filter(({_id}) => _id !== id)))
-    }
+    const handleUsersDelete = (id) => setUsers(prevState => prevState.filter(({ _id }) => _id !== id))
 
     const handleSelected = (id) => {
         setUsers(
@@ -55,13 +42,9 @@ const Users = () => {
         )
     }
 
-    const handleProfessionSelect = (item) => {
-        setSelectedProf(item)
-    }
+    const handleProfessionSelect = (item) => setSelectedProf(item)
 
-    const handleSort = (item) => {
-        setSortBy(item)
-    }
+    const handleSort = (item) => setSortBy(item)
 
     const filteredUsers = selectedProf
           ? users.filter((user) => JSON.stringify(user.profession) === JSON.stringify(selectedProf))
@@ -77,7 +60,7 @@ const Users = () => {
         setSelectedProf()
     }
 
-    if (count !== 0) {
+    if (count.length !== 0) {
         return (
               <div className="d-flex">
                   {professions && (
@@ -121,9 +104,7 @@ const Users = () => {
         )
     }
 
-    return (
-          <SearchStatus length={count}/>
-    )
+    return (<SearchStatus length={count.length}/>)
 }
 
 export default Users

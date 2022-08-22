@@ -5,11 +5,16 @@ import QualitiesList from './qualitiesList'
 import Table from './table'
 import TableHeader from "./tableHeader";
 import TableBody from "./tableBody";
+import {Link} from "react-router-dom";
 
-const UsersTable = ({userCrop, users, handleSelected, handleUsersDelete, selectedSort, onSort}) => {
+const UsersTable = ({userCrop, handleSelected, handleUsersDelete, selectedSort, onSort}) => {
 
     const columns = {
-        name: {path: 'name', name: 'Имя'},
+        name: {
+            path: 'name',
+            name: 'Имя',
+            component: (user) => (<Link key={user._id} to={`users/${user._id}`}>{user.name}</Link>)
+        },
         qualities: {
             name: 'Качества',
             component: (user) => (
