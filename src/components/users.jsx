@@ -20,7 +20,7 @@ const Users = () => {
         API.users.fetchAll().then((data) => {
             setUsers(data)
         }).then(() => API.professions.fetchAll()
-              .then((data) => setProfessions(data)))
+            .then((data) => setProfessions(data)))
     }, [])
 
     useEffect(() => {
@@ -33,12 +33,12 @@ const Users = () => {
 
     const handleSelected = (id) => {
         setUsers(
-              users.map(user => {
-                  if (user._id === id) {
-                      user.bookmark = !user.bookmark
-                  }
-                  return user
-              })
+            users.map(user => {
+                if (user._id === id) {
+                    user.bookmark = !user.bookmark
+                }
+                return user
+            })
         )
     }
 
@@ -47,8 +47,8 @@ const Users = () => {
     const handleSort = (item) => setSortBy(item)
 
     const filteredUsers = selectedProf
-          ? users.filter((user) => JSON.stringify(user.profession) === JSON.stringify(selectedProf))
-          : users
+        ? users.filter((user) => JSON.stringify(user.profession) === JSON.stringify(selectedProf))
+        : users
 
     const count = filteredUsers
 
@@ -62,45 +62,45 @@ const Users = () => {
 
     if (count.length !== 0) {
         return (
-              <div className='d-flex'>
-                  {professions && (
-                        <div className='d-flex flex-column flex-shrink-0 p-3'>
-                            <GroupList
-                                  items={professions}
-                                  selectedItem={selectedProf}
-                                  onItemSelect={handleProfessionSelect}
-                            />
-                            <button
-                                  className='btn btn-secondary m-2'
-                                  onClick={clearFilter}
-                            >
+            <div className='d-flex'>
+                {professions && (
+                    <div className='d-flex flex-column flex-shrink-0 p-3'>
+                        <GroupList
+                            items={professions}
+                            selectedItem={selectedProf}
+                            onItemSelect={handleProfessionSelect}
+                        />
+                        <button
+                            className='btn btn-secondary m-2'
+                            onClick={clearFilter}
+                        >
                                 Очистить
-                            </button>
-                        </div>)}
-                  {users && (
-                        <div className='d-flex flex-column'>
-                            <SearchStatus length={count.length}/>
-                            {users.length > 0 && (
-                                  <UsersTable
-                                        userCrop={userCrop}
-                                        users={users}
-                                        handleSelected={handleSelected}
-                                        handleUsersDelete={handleUsersDelete}
-                                        onSort={handleSort}
-                                        selectedSort={sortBy}
-                                  />
-                            )}
-                            <div className='d-flex justify-content-center'>
-                                <Pagination
-                                      itemsCount={count.length}
-                                      pageSize={pageSize}
-                                      currentPage={currentPage}
-                                      onPageChange={handlePageChange}
-                                />
-                            </div>
+                        </button>
+                    </div>)}
+                {users && (
+                    <div className='d-flex flex-column'>
+                        <SearchStatus length={count.length}/>
+                        {users.length > 0 && (
+                            <UsersTable
+                                userCrop={userCrop}
+                                users={users}
+                                handleSelected={handleSelected}
+                                handleUsersDelete={handleUsersDelete}
+                                onSort={handleSort}
+                                selectedSort={sortBy}
+                            />
+                        )}
+                        <div className='d-flex justify-content-center'>
+                            <Pagination
+                                itemsCount={count.length}
+                                pageSize={pageSize}
+                                currentPage={currentPage}
+                                onPageChange={handlePageChange}
+                            />
                         </div>
-                  )}
-              </div>
+                    </div>
+                )}
+            </div>
         )
     }
 

@@ -1,8 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const TableHeader = ({onSort, selectedSort, columns}) => {
-
+const TableHeader = ({ onSort, selectedSort, columns }) => {
     const handleSortItem = (item) => {
         if (selectedSort.path === item) {
             onSort({
@@ -10,7 +9,7 @@ const TableHeader = ({onSort, selectedSort, columns}) => {
                 order: selectedSort.order === 'asc' ? 'desc' : 'asc'
             })
         } else {
-            onSort({path: item, order: 'asc'})
+            onSort({ path: item, order: 'asc' })
         }
     }
 
@@ -26,25 +25,25 @@ const TableHeader = ({onSort, selectedSort, columns}) => {
     }
 
     return (
-          <thead>
-          <tr>
-              {Object.keys(columns).map(column => (
+        <thead>
+            <tr>
+                {Object.keys(columns).map(column => (
                     <th
-                          key={column}
-                          onClick={columns[column].path
-                                ? () => handleSortItem(columns[column].path)
-                                : undefined
-                          }
-                          {...{role: columns[column].path && 'button'}}
-                          scope='col'
+                        key={column}
+                        onClick={columns[column].path
+                            ? () => handleSortItem(columns[column].path)
+                            : undefined
+                        }
+                        {...{ role: columns[column].path && 'button' }}
+                        scope='col'
                     >
                         {columns[column].name}
                         {renderSortArrow(selectedSort, columns[column].path)}
 
                     </th>
-              ))}
-          </tr>
-          </thead>
+                ))}
+            </tr>
+        </thead>
     )
 }
 

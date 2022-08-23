@@ -1,13 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const Quality = ({id, color, name}) => {
+const Quality = ({ id, color, name }) => {
     return (
-          <div
-                key={id}
-                className={`badge m-1 bg-${color}`}>
-              {name}
-          </div>)
+        <div
+            key={id}
+            className={`badge m-1 bg-${color}`}>
+            {name}
+        </div>)
 }
 
 Quality.propTypes = {

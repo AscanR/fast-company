@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const SearchStatus = ({length}) => {
+const SearchStatus = ({ length }) => {
     const renderPhrase = (num) => {
         if (num === 1 || num > 4) {
             return 'человек тусанет'
@@ -15,11 +15,11 @@ const SearchStatus = ({length}) => {
     const content = isEmptyList ? 'Никто с тобой не тусанет' : `${length} ${renderPhrase(length)} с тобой сегодня`
 
     return (
-          <h2>
-              <span className={classNames}>
-                  {content}
-              </span>
-          </h2>
+        <h2>
+            <span className={classNames}>
+                {content}
+            </span>
+        </h2>
     )
 }
 

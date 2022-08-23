@@ -5,10 +5,9 @@ import QualitiesList from './qualitiesList'
 import Table from './table'
 import TableHeader from './tableHeader'
 import TableBody from './tableBody'
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
-const UsersTable = ({userCrop, handleSelected, handleUsersDelete, selectedSort, onSort}) => {
-
+const UsersTable = ({ userCrop, handleSelected, handleUsersDelete, selectedSort, onSort }) => {
     const columns = {
         name: {
             path: 'name',
@@ -18,46 +17,46 @@ const UsersTable = ({userCrop, handleSelected, handleUsersDelete, selectedSort, 
         qualities: {
             name: 'Качества',
             component: (user) => (
-                  <QualitiesList qualities={user.qualities}/>
+                <QualitiesList qualities={user.qualities}/>
             )
         },
-        professions: {path: 'profession.name', name: 'Профессия'},
-        completedMeetings: {path: 'completedMeetings', name: 'Встретился, раз'},
-        rate: {path: 'rate', name: 'Оценка'},
+        professions: { path: 'profession.name', name: 'Профессия' },
+        completedMeetings: { path: 'completedMeetings', name: 'Встретился, раз' },
+        rate: { path: 'rate', name: 'Оценка' },
         bookmark: {
             path: 'bookmark',
             name: 'Избранное',
             component: (user) => (
-                  <Bookmark
-                        handleSelected={handleSelected}
-                        id={user._id}
-                        bookmark={user.bookmark}
-                  />)
+                <Bookmark
+                    handleSelected={handleSelected}
+                    id={user._id}
+                    bookmark={user.bookmark}
+                />)
         },
         delete: {
             component: (user) => (
-                  <button
-                        className='btn btn-danger btn-sm'
-                        onClick={() => handleUsersDelete(user._id)}
-                  >
+                <button
+                    className='btn btn-danger btn-sm'
+                    onClick={() => handleUsersDelete(user._id)}
+                >
                       delete
-                  </button>
+                </button>
             )
         }
     }
 
     return (
-          <Table
-                onSort={onSort}
-                selectedSort={selectedSort}
-                columns={columns}
-                data={userCrop}
-          >
-              <TableHeader
-                    {...{onSort, selectedSort, columns}}/>
-              <TableBody
-                    {...{columns, data: userCrop}}/>
-          </Table>
+        <Table
+            onSort={onSort}
+            selectedSort={selectedSort}
+            columns={columns}
+            data={userCrop}
+        >
+            <TableHeader
+                {...{ onSort, selectedSort, columns }}/>
+            <TableBody
+                {...{ columns, data: userCrop }}/>
+        </Table>
     )
 }
 
@@ -67,7 +66,7 @@ UsersTable.propTypes = {
     handleSelected: PropTypes.func.isRequired,
     handleUsersDelete: PropTypes.func.isRequired,
     onSort: PropTypes.func.isRequired,
-    selectedSort: PropTypes.object.isRequired,
+    selectedSort: PropTypes.object.isRequired
 }
 
 export default UsersTable
