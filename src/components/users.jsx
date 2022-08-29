@@ -15,6 +15,7 @@ const Users = () => {
     const [selectedProf, setSelectedProf] = useState()
     const [sortBy, setSortBy] = useState({ path: 'name', order: 'asc' })
     const [currentPage, setCurrentPage] = useState(1)
+    const [searchUser, setSearchUser] = useState('')
 
     useEffect(() => {
         API.users.fetchAll().then((data) => {
@@ -25,7 +26,7 @@ const Users = () => {
 
     useEffect(() => {
         setCurrentPage(1)
-    }, [selectedProf])
+    }, [selectedProf, searchUser])
 
     const handlePageChange = (pageIndex) => setCurrentPage(pageIndex)
 
@@ -42,13 +43,23 @@ const Users = () => {
         )
     }
 
-    const handleProfessionSelect = (item) => setSelectedProf(item)
+    const handleProfessionSelect = (item) => {
+        if (searchUser !== '') setSearchUser('')
+        setSelectedProf(item)
+    }
+
+    const handleSearchUser = ({ target }) => {
+        setSelectedProf(undefined)
+        setSearchUser(target.value)
+    }
 
     const handleSort = (item) => setSortBy(item)
 
-    const filteredUsers = selectedProf
-        ? users.filter((user) => JSON.stringify(user.profession) === JSON.stringify(selectedProf))
-        : users
+    const filteredUsers = searchUser
+        ? users.filter((user) => user.name.toLowerCase().indexOf(searchUser.toLowerCase()) !== -1)
+        : selectedProf
+            ? users.filter((user) => JSON.stringify(user.profession) === JSON.stringify(selectedProf))
+            : users
 
     const count = filteredUsers
 
@@ -80,6 +91,13 @@ const Users = () => {
                 {users && (
                     <div className='d-flex flex-column'>
                         <SearchStatus length={count.length}/>
+                        <input
+                            type="text"
+                            name="searchUser"
+                            placeholder="Поиск..."
+                            onChange={handleSearchUser}
+                            value={searchUser}
+                        />
                         {users.length > 0 && (
                             <UsersTable
                                 userCrop={userCrop}
