@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react'
-import API from '../api'
-import SearchStatus from './searchStatus'
-import Pagination from './pagination'
-import { paginate } from '../utils/paginate'
-import GroupList from './groupList'
-import UsersTable from './usersTable'
+import API from '../../../api'
+import SearchStatus from '../../ui/searchStatus'
+import Pagination from '../../common/pagination'
+import { paginate } from '../../../utils/paginate'
+import GroupList from '../../common/groupList'
+import UsersTable from '../../ui/usersTable'
 import _ from 'lodash'
 
 const pageSize = 6
 
-const Users = () => {
+const UsersListPage = () => {
     const [users, setUsers] = useState([])
     const [professions, setProfessions] = useState([])
     const [selectedProf, setSelectedProf] = useState()
@@ -97,6 +97,7 @@ const Users = () => {
                             placeholder="Поиск..."
                             onChange={handleSearchUser}
                             value={searchUser}
+                            className='m-2 w-50'
                         />
                         {users.length > 0 && (
                             <UsersTable
@@ -125,4 +126,4 @@ const Users = () => {
     return (<SearchStatus length={count.length}/>)
 }
 
-export default Users
+export default UsersListPage
