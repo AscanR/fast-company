@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from 'react'
-import {useHistory} from 'react-router-dom'
+import {Link, Route, useHistory} from 'react-router-dom'
 import api from '../../../api'
 import PropTypes from 'prop-types'
 import Qualities from "../../ui/qualities";
-
+import UserEditForm from "../../ui/userEditForm";
 
 const UserPage = ({userId}) => {
     const history = useHistory()
@@ -23,6 +23,14 @@ const UserPage = ({userId}) => {
                 <p>completedMeetings: {user.completedMeetings}</p>
                 <h2>Rate: {user.rate}</h2>
                 <button onClick={handleClick}> Все Пользователи</button>
+                <button>
+                    <Link
+                        className='text-decoration-none text-black'
+                        to={`/users/${userId}/edit`}>
+                        Изменить
+                    </Link>
+                </button>
+                <Route path={`/users/${userId}/edit`} component={()=> <UserEditForm userId={userId}/>}/>
             </div>
         )
     } else {
