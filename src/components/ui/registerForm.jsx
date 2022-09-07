@@ -1,24 +1,24 @@
-import React, {useEffect, useState} from 'react'
-import {validator} from '../../utils/validator'
-import TextField from '../common/form/textField'
-import SelectField from '../common/form/selectField'
-import RadioField from '../common/form/radioField'
+import React, { useEffect, useState } from "react";
+import { validator } from "../../utils/validator";
+import TextField from "../common/form/textField";
+import SelectField from "../common/form/selectField";
+import RadioField from "../common/form/radioField";
 import MultiSelectField from "../common/form/multiSelectField";
 import CheckBoxField from "../common/form/checkBoxField";
 import api from "../../api";
 
 const RegisterForm = () => {
     const [data, setData] = useState({
-        email: '',
-        password: '',
-        profession: '',
-        sex: 'male',
+        email: "",
+        password: "",
+        profession: "",
+        sex: "male",
         qualities: [],
         licence: false
-    })
-    const [qualities, setQualities] = useState([])
-    const [professions, setProfession] = useState([])
-    const [errors, setErrors] = useState({})
+    });
+    const [qualities, setQualities] = useState([]);
+    const [professions, setProfession] = useState([]);
+    const [errors, setErrors] = useState({});
 
     useEffect(() => {
         api.professions.fetchAll().then((data) => {
@@ -39,52 +39,52 @@ const RegisterForm = () => {
     }, []);
 
     const handleChange = (target) => {
-        setData((prevState) => ({...prevState, [target.name]: target.value}))
-    }
+        setData((prevState) => ({ ...prevState, [target.name]: target.value }));
+    };
 
     const validatorConfig = {
         email: {
-            isRequired: {message: 'Электронная почта обязательна для заполнения'},
-            isEmail: {message: 'Электронная почта введена некорректно'}
+            isRequired: { message: "Электронная почта обязательна для заполнения" },
+            isEmail: { message: "Электронная почта введена некорректно" }
         },
         password: {
-            isRequired: {message: 'Необходимо ввести пароль'},
-            isCapitalSymbol: {message: 'Пароль должен содержать хотя бы одну заглавную букву'},
-            isContainDigit: {message: 'Пароль должен содержать хотя бы одну цифру'},
+            isRequired: { message: "Необходимо ввести пароль" },
+            isCapitalSymbol: { message: "Пароль должен содержать хотя бы одну заглавную букву" },
+            isContainDigit: { message: "Пароль должен содержать хотя бы одну цифру" },
             min: {
-                message: 'Пароль должен содержать минимум 8 символов',
+                message: "Пароль должен содержать минимум 8 символов",
                 value: 8
             }
         },
         profession: {
             isRequired: {
-                message: 'Выбирете Вашу профессию'
+                message: "Выбирете Вашу профессию"
             }
         },
         licence: {
             isRequired: {
-                message: 'Подтвердите, что ознакомились с лицензионным соглашением'
+                message: "Подтвердите, что ознакомились с лицензионным соглашением"
             }
         }
-    }
+    };
 
     const validate = () => {
-        const errors = validator(data, validatorConfig)
-        setErrors(errors)
-        return Object.keys(errors) === null
-    }
+        const errors = validator(data, validatorConfig);
+        setErrors(errors);
+        return Object.keys(errors) === null;
+    };
 
-    const isValid = Object.keys(errors).length === 0
+    const isValid = Object.keys(errors).length === 0;
 
     useEffect(() => {
-        validate()
-    }, [data])
+        validate();
+    }, [data]);
 
     const handleSubmit = (e) => {
         e.preventDefault();
         const isValid = validate();
         if (!isValid) return;
-        const {profession, qualities} = data;
+        const { profession, qualities } = data;
         console.log({
             ...data,
             profession: getProfessionById(profession),
@@ -94,7 +94,7 @@ const RegisterForm = () => {
     const getProfessionById = (id) => {
         for (const prof of professions) {
             if (prof.value === id) {
-                return {_id: prof.value, name: prof.label};
+                return { _id: prof.value, name: prof.label };
             }
         }
     };
@@ -114,7 +114,6 @@ const RegisterForm = () => {
         return qualitiesArray;
     };
 
-
     return (
         <form onSubmit={handleSubmit}>
             <TextField label='Электронная почта' name='email' value={data.email} onChange={handleChange}
@@ -132,9 +131,9 @@ const RegisterForm = () => {
             />
             <RadioField
                 options={[
-                    {name: 'Male', value: 'male'},
-                    {name: 'Female', value: 'female'},
-                    {name: 'Other', value: 'other'}
+                    { name: "Male", value: "male" },
+                    { name: "Female", value: "female" },
+                    { name: "Other", value: "other" }
                 ]}
                 value={data.sex}
                 name='sex'
@@ -159,7 +158,7 @@ const RegisterForm = () => {
             <button type='submit' disabled={!isValid} className='btn btn-primary w-100 mx-auto'>Submit
             </button>
         </form>
-    )
+    );
 };
 
-export default RegisterForm
+export default RegisterForm;

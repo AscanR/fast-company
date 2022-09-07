@@ -1,16 +1,16 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React from "react";
+import PropTypes from "prop-types";
 
-const SelectField = ({label, value, onChange, defaultOption, options, error, name}) => {
+const SelectField = ({ label, value, onChange, defaultOption, options, error, name }) => {
     const getInputClasses = () => {
-        return 'form-select' + (error ? ' is-invalid' : '')
-    }
-    const handleChange = ({target}) => {
-        onChange({name: target.name, value: target.value})
-    }
+        return "form-select" + (error ? " is-invalid" : "");
+    };
+    const handleChange = ({ target }) => {
+        onChange({ name: target.name, value: target.value });
+    };
     const optionsArray = !Array.isArray(options) && typeof options === "object"
         ? Object.values(options)
-        : options
+        : options;
 
     return (
         <div className='mb-4'>
@@ -25,7 +25,7 @@ const SelectField = ({label, value, onChange, defaultOption, options, error, nam
                 <option disabled value=''>{defaultOption}</option>
                 {optionsArray.length > 0 && optionsArray.map(option => (
                     <option
-                        key={option.name}
+                        key={option.value}
                         value={option.value}
                     >
                         {option.label}
@@ -37,8 +37,8 @@ const SelectField = ({label, value, onChange, defaultOption, options, error, nam
                     {error}
                 </div>}
         </div>
-    )
-}
+    );
+};
 
 SelectField.propTypes = {
     defaultOption: PropTypes.string,
@@ -48,6 +48,6 @@ SelectField.propTypes = {
     error: PropTypes.string,
     options: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
     name: PropTypes.string
-}
+};
 
-export default SelectField
+export default SelectField;
