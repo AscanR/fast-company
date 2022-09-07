@@ -1,19 +1,19 @@
-import React, {useEffect, useState} from 'react'
-import {useHistory} from 'react-router-dom'
-import api from '../../../api'
-import PropTypes from 'prop-types'
+import React, { useEffect, useState } from "react";
+import { Link, Route, useHistory } from "react-router-dom";
+import api from "../../../api";
+import PropTypes from "prop-types";
 import Qualities from "../../ui/qualities";
+import UserEditPage from "../userEditPage/userEditPage";
 
-
-const UserPage = ({userId}) => {
-    const history = useHistory()
-    const [user, setUser] = useState()
+const UserPage = ({ userId }) => {
+    const history = useHistory();
+    const [user, setUser] = useState();
     useEffect(() => {
-        api.users.getById(userId).then((data) => setUser(data))
-    }, [])
+        api.users.getById(userId).then((data) => setUser(data));
+    }, []);
     const handleClick = () => {
-        history.push('/users')
-    }
+        history.push("/users");
+    };
     if (user) {
         return (
             <div className='m-2'>
@@ -23,15 +23,23 @@ const UserPage = ({userId}) => {
                 <p>completedMeetings: {user.completedMeetings}</p>
                 <h2>Rate: {user.rate}</h2>
                 <button onClick={handleClick}> Все Пользователи</button>
+                <button>
+                    <Link
+                        className='text-decoration-none text-black'
+                        to={`/users/${userId}/edit`}>
+                        Изменить
+                    </Link>
+                </button>
+                <Route path={`/users/${userId}/edit`} component={() => <UserEditPage userId={userId}/>}/>
             </div>
-        )
+        );
     } else {
-        return (<h1 className='m-2'>Loading...</h1>)
+        return (<h3 className='m-2'>Loading...</h3>);
     }
-}
+};
 
 UserPage.propTypes = {
     userId: PropTypes.string.isRequired
-}
+};
 
-export default UserPage
+export default UserPage;

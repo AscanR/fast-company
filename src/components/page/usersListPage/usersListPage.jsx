@@ -1,75 +1,75 @@
-import React, { useEffect, useState } from 'react'
-import API from '../../../api'
-import SearchStatus from '../../ui/searchStatus'
-import Pagination from '../../common/pagination'
-import { paginate } from '../../../utils/paginate'
-import GroupList from '../../common/groupList'
-import UsersTable from '../../ui/usersTable'
-import _ from 'lodash'
+import React, { useEffect, useState } from "react";
+import API from "../../../api";
+import SearchStatus from "../../ui/searchStatus";
+import Pagination from "../../common/pagination";
+import { paginate } from "../../../utils/paginate";
+import GroupList from "../../common/groupList";
+import UsersTable from "../../ui/usersTable";
+import _ from "lodash";
 
-const pageSize = 6
+const pageSize = 6;
 
 const UsersListPage = () => {
-    const [users, setUsers] = useState([])
-    const [professions, setProfessions] = useState([])
-    const [selectedProf, setSelectedProf] = useState()
-    const [sortBy, setSortBy] = useState({ path: 'name', order: 'asc' })
-    const [currentPage, setCurrentPage] = useState(1)
-    const [searchUser, setSearchUser] = useState('')
+    const [users, setUsers] = useState([]);
+    const [professions, setProfessions] = useState([]);
+    const [selectedProf, setSelectedProf] = useState();
+    const [sortBy, setSortBy] = useState({ path: "name", order: "asc" });
+    const [currentPage, setCurrentPage] = useState(1);
+    const [searchUser, setSearchUser] = useState("");
 
     useEffect(() => {
         API.users.fetchAll().then((data) => {
-            setUsers(data)
+            setUsers(data);
         }).then(() => API.professions.fetchAll()
-            .then((data) => setProfessions(data)))
-    }, [])
+            .then((data) => setProfessions(data)));
+    }, []);
 
     useEffect(() => {
-        setCurrentPage(1)
-    }, [selectedProf, searchUser])
+        setCurrentPage(1);
+    }, [selectedProf, searchUser]);
 
-    const handlePageChange = (pageIndex) => setCurrentPage(pageIndex)
+    const handlePageChange = (pageIndex) => setCurrentPage(pageIndex);
 
-    const handleUsersDelete = (id) => setUsers(prevState => prevState.filter(({ _id }) => _id !== id))
+    const handleUsersDelete = (id) => setUsers(prevState => prevState.filter(({ _id }) => _id !== id));
 
     const handleSelected = (id) => {
         setUsers(
             users.map(user => {
                 if (user._id === id) {
-                    user.bookmark = !user.bookmark
+                    user.bookmark = !user.bookmark;
                 }
-                return user
+                return user;
             })
-        )
-    }
+        );
+    };
 
     const handleProfessionSelect = (item) => {
-        if (searchUser !== '') setSearchUser('')
-        setSelectedProf(item)
-    }
+        if (searchUser !== "") setSearchUser("");
+        setSelectedProf(item);
+    };
 
     const handleSearchUser = ({ target }) => {
-        setSelectedProf(undefined)
-        setSearchUser(target.value)
-    }
+        setSelectedProf(undefined);
+        setSearchUser(target.value);
+    };
 
-    const handleSort = (item) => setSortBy(item)
+    const handleSort = (item) => setSortBy(item);
 
     const filteredUsers = searchUser
         ? users.filter((user) => user.name.toLowerCase().indexOf(searchUser.toLowerCase()) !== -1)
         : selectedProf
             ? users.filter((user) => JSON.stringify(user.profession) === JSON.stringify(selectedProf))
-            : users
+            : users;
 
-    const count = filteredUsers
+    const count = filteredUsers;
 
-    const sortedUsers = _.orderBy(filteredUsers, [sortBy.path], [sortBy.order])
+    const sortedUsers = _.orderBy(filteredUsers, [sortBy.path], [sortBy.order]);
 
-    const userCrop = paginate(sortedUsers, currentPage, pageSize)
+    const userCrop = paginate(sortedUsers, currentPage, pageSize);
 
     const clearFilter = () => {
-        setSelectedProf()
-    }
+        setSelectedProf();
+    };
 
     if (count.length !== 0) {
         return (
@@ -120,10 +120,10 @@ const UsersListPage = () => {
                     </div>
                 )}
             </div>
-        )
+        );
     }
 
-    return (<SearchStatus length={count.length}/>)
-}
+    return (<SearchStatus length={count.length}/>);
+};
 
-export default UsersListPage
+export default UsersListPage;

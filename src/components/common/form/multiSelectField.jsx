@@ -1,14 +1,14 @@
-import React from 'react'
-import Select from 'react-select'
-import PropTypes from 'prop-types'
+import React from "react";
+import Select from "react-select";
+import PropTypes from "prop-types";
 
-const MultiSelectField = ({options, onChange, name, label, defaultValue}) => {
+const MultiSelectField = ({ options, onChange, name, label, defaultValue }) => {
     const optionsArray = !Array.isArray(options) && typeof options === "object"
         ? Object.values(options)
-        : options
+        : options;
     const handleChange = (value) => {
-        onChange({name: name, value})
-    }
+        onChange({ name, value });
+    };
     return (
         <div className='mb-4'>
             <label className='form-label'>{label}</label>
@@ -23,8 +23,8 @@ const MultiSelectField = ({options, onChange, name, label, defaultValue}) => {
                 defaultValue={defaultValue}
             />
         </div>
-    )
-}
+    );
+};
 
 MultiSelectField.propTypes = {
     onChange: PropTypes.func,
@@ -32,6 +32,6 @@ MultiSelectField.propTypes = {
     name: PropTypes.string,
     label: PropTypes.string,
     defaultValue: PropTypes.array
-}
+};
 
-export default MultiSelectField
+export default MultiSelectField;
