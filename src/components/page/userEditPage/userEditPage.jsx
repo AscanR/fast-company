@@ -7,6 +7,7 @@ import RadioField from "../../common/form/radioField";
 import { useHistory } from "react-router-dom";
 import PropTypes from "prop-types";
 import { validator } from "../../../utils/validator";
+import BackButton from "../../common/backButton";
 
 const UserEditPage = ({ userId }) => {
     const [user, setUser] = useState({
@@ -112,38 +113,46 @@ const UserEditPage = ({ userId }) => {
     };
     if (!isLoading) {
         return (
-            <form onSubmit={handleSubmit} className='m-2 w-50'>
-                <TextField label='Имя' type='text' name='name' value={user.name} onChange={handleChange}
-                           error={errors.name}/>
-                <TextField label='Электронная почта' type='email' name='email' value={user.email}
-                           onChange={handleChange} error={errors.email}/>
-                <SelectField
-                    label='Профессия'
-                    options={professions}
-                    onChange={handleChange}
-                    value={user.profession}
-                    name='profession'
-                />
-                <RadioField
-                    options={[
-                        { name: "Male", value: "male" },
-                        { name: "Female", value: "female" },
-                        { name: "Other", value: "other" }
-                    ]}
-                    value={user.sex}
-                    name='sex'
-                    onChange={handleChange}
-                    label='Пол'
-                />
-                <MultiSelectField
-                    options={qualities}
-                    onChange={handleChange}
-                    name='qualities'
-                    label='Качества'
-                    defaultValue={user.qualities}
-                />
-                <button type='submit' disabled={!isValid} className='btn btn-primary w-100 mx-auto'>Обновить</button>
-            </form>
+            <div className="container mt-5">
+                <BackButton/>
+                <div className="row">
+                    <div className="col-md-6 offset-md-3 shadow p-4">
+                        <form onSubmit={handleSubmit} className='m-2'>
+                            <TextField label='Имя' type='text' name='name' value={user.name} onChange={handleChange}
+                                       error={errors.name}/>
+                            <TextField label='Электронная почта' type='email' name='email' value={user.email}
+                                       onChange={handleChange} error={errors.email}/>
+                            <SelectField
+                                label='Профессия'
+                                options={professions}
+                                onChange={handleChange}
+                                value={user.profession}
+                                name='profession'
+                            />
+                            <RadioField
+                                options={[
+                                    { name: "Male", value: "male" },
+                                    { name: "Female", value: "female" },
+                                    { name: "Other", value: "other" }
+                                ]}
+                                value={user.sex}
+                                name='sex'
+                                onChange={handleChange}
+                                label='Пол'
+                            />
+                            <MultiSelectField
+                                options={qualities}
+                                onChange={handleChange}
+                                name='qualities'
+                                label='Качества'
+                                defaultValue={user.qualities}
+                            />
+                            <button type='submit' disabled={!isValid} className='btn btn-primary w-100 mx-auto'>Обновить
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
         );
     } else {
         return <h3 className='m-2'>Loading...</h3>;
