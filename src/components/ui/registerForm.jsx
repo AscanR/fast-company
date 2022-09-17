@@ -82,7 +82,6 @@ const RegisterForm = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        const isValid = validate();
         if (!isValid) return;
         const { profession, qualities } = data;
         console.log({

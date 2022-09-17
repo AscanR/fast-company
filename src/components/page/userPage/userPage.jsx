@@ -22,10 +22,10 @@ const UserPage = ({ userId }) => {
                 <Qualities qualities={user.qualities}/>
                 <p>completedMeetings: {user.completedMeetings}</p>
                 <h2>Rate: {user.rate}</h2>
-                <button onClick={handleClick}> Все Пользователи</button>
-                <button>
+                <button className='btn btn-primary m-2' onClick={handleClick}> Все Пользователи</button>
+                <button className='btn btn-primary m-2'>
                     <Link
-                        className='text-decoration-none text-black'
+                        className='text-decoration-none text-white'
                         to={`/users/${userId}/edit`}>
                         Изменить
                     </Link>

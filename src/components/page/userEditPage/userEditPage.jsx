@@ -105,13 +105,11 @@ const UserEditPage = ({ userId }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        const isValid = validate();
         if (!isValid) return;
         api.users.update(userId, {
             ...user, profession: getProfessionById(user.profession), qualities: getQualities(user.qualities)
         }).then((data) => history.push("/users"));
     };
-
     if (!isLoading) {
         return (
             <form onSubmit={handleSubmit} className='m-2 w-50'>
