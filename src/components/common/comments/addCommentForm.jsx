@@ -31,6 +31,9 @@ const AddCommentForm = ({ onSubmit }) => {
     };
     const isValid = Object.keys(errors).length === 0;
     useEffect(() => {
+        validate();
+    }, [data]);
+    useEffect(() => {
         api.users.fetchAll().then(setUsers);
     }, []);
     const clearForm = () => {
@@ -66,7 +69,7 @@ const AddCommentForm = ({ onSubmit }) => {
                     error={errors.content}
                 />
                 <div className="d-flex justify-content-end">
-                    <button className="btn btn-primary">Опубликовать</button>
+                    <button disabled={!isValid} className="btn btn-primary">Опубликовать</button>
                 </div>
             </form>
         </div>
